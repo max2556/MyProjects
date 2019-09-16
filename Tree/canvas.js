@@ -18,7 +18,7 @@ var xStart = 600;
 var yStart = 800;
 
 
-var maxLayers = 10;
+var maxLayers = 8;
 
 
 var Center = 0;
@@ -31,9 +31,9 @@ var currentStick = 0;
 var _addAngle = 15;
 var _Angle = 30;
 var _lengthDecreaseMultiplier = 0.9;
-var _multiplierDecrease = 0.5;
+var _multiplierDecrease = -0.025;
 
-var multiplier = 0.8;
+var multiplier = 0.85;
 
 var isFirst = true;
 
@@ -47,32 +47,28 @@ window.onload = function () {
   ctx.fillStyle = "black";
   ctx.fillRect(0,0,ctxX,ctxY); //Заполняем окно черным
   sticksToDraw.push(new object(xStart, yStart, angleStart, Center));
-  setInterval(main,1000/speed);
+  main();
 }
 
 function main() {
     if(layers < maxLayers) {
-      
-      
-      draw();
-      
+      if(currentStick < sticksToDraw.length) {
+        sticksToDraw[currentStick].draw(); 
+        currentStick++;
+      } else 
+      {
+      currentStick = 0;
+      update();
+      for (var i = 0; i < sticksToDraw.length; i++) {
+        sticksCreate(i);
+      }
+      sticksReplace();     
+    }  
     }
+    main();
 }
 
-function draw() {
-  if(currentStick < sticksToDraw.length) {
-    sticksToDraw[currentStick].draw(); 
-    currentStick++;
-  } else 
-  {
-    currentStick = 0;
-    update();
-    for (var i = 0; i < sticksToDraw.length; i++) {
-      sticksCreate(i);
-    }
-    sticksReplace();     
-  }  
-}
+
 
 
 
@@ -138,7 +134,7 @@ function update() {
     Angle *= multiplier;
     addAngle *= multiplier;
     length *= _lengthDecreaseMultiplier;
-    //multiplier *= _multiplierDecrease;
+    multiplier += _multiplierDecrease;
 
 }
 
