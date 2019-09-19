@@ -1,12 +1,39 @@
 <!doctype html>
 <html>
 	<head>
-		<title>canvasExample</title>
+    <title>Строить графики</title>
     <meta charset='utf-8' />
+    <link rel="stylesheet" href="style.css">    
     <script src="canvas.js"></script>
   </head>
-	<body>
-		<canvas width='1600' height='900' id='canvas'>Обновите браузер</canvas>
+	<body style="background-image: url(img/backgroung.jpg")>
+		
+        
+
+        <nav class="one">
+            <h2>-----</h2>
+            <ul class="topmenu">
+                <li><a href="readme.txt">Помощь</a></li>
+                <li><a href="#">Настройки отображения<i class="fa fa-angle-down"></i></a>
+                    <ul class="submenu">
+                        <li><input id="Input_Options_1" value="Режим работы"></li>    
+                        <li><input value="Настройка_2"></li>    
+                        <li><input value="Настройка_3"></li>    
+                        <li><input value="Настройка_4"></li>    
+                    </ul>
+                </li>
+                <li><a href="#">Создать график<i class="fa fa-angle-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#">Введите формулу</a><input id="Input_Formula" value="Введите формулу"></li>    
+                        <li><a href="#">делает ничего, а удалять лень</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">???</a></li>
+                <li><a href="https://ok.ru/v.v..putin">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <canvas width='1600' height='900' id='canvas'>Обновите браузер</canvas>
 
 
 	</body>
