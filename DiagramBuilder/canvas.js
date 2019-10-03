@@ -130,7 +130,21 @@ function object(x, y, parts, color, type, modList, x_scale, y_scale) {
     if(x_scale != undefined){this.x_scale = x_scale;}
     if(y_scale != undefined){this.y_scale = y_scale;}
     if(modList != undefined){this.modList = modList;}
-    
+    this.isAlreadyModifed = false
+
+
+
+
+    this.modification = function(func){
+        func.type = this.type;
+        for(var i = 0; i < modList.length; i++){
+          func = eval(modification_functions[modList[i]]);               
+        }
+        this.type = func.type;
+      this.isAlreadyModifed = true;
+    }
+
+
     this.diagram_build = function(i, X, Y) {
         /*
         Здесь происходит "построение" функции
@@ -146,19 +160,13 @@ function object(x, y, parts, color, type, modList, x_scale, y_scale) {
         };
         //2
         var x = i * this.x_scale;
-        var y = 0;
         //3
-        if(this.modList.length > 0){
-          func.type = this.type;
-          for(var i = 0; i < modList.length; i++){
-            func = eval(modification_functions[modList[i]]);               
-          }
-          this.type = func.type;
-          
+        if(!this.isAlreadyModifed && this.modList.length > 0){
+          this.modification(func);
         }
-        var delta = 0.000001;
-        y = eval(this.type);
         
+        var delta = 0.000001;
+        var y = eval(this.type);
         //4
         x = finalCorrect(x, this.x_scale);
         y = finalCorrect(y, this.y_scale);
