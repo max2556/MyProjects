@@ -1,12 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lora);
 body {margin:0;}
 h2 {
-  font-family: monospace;
   color: #606060;
 }
 nav {
-  width: 40%;
-  margin: 0 auto 30px;
+  width: 50%;
+  margin: 0 auto 10px;
 }
 ul {
   list-style: none; 
@@ -27,11 +26,11 @@ a {
   padding: 10px 15px;
   text-decoration: none;
   outline: none;
-  font-family: 'Lora', serif;
+ 
   transition: .5s linear;
 }
 .fa {
-  font-family: "FontAwesome";
+  
   color: inherit;
   padding-left: 10px;
 }
@@ -64,11 +63,13 @@ a {
   background: #696969;
 }
 .one ul a {
-  color: #cc33ff;
+  color: #66ffff;
+  font-size: 20px;
+  font-weight: bold;
 }
 .one .submenu {
   display: none;
-  background: #fff0b3;
+  background: #696969;
 }
 .one ul li:hover .submenu {
   display: block;
