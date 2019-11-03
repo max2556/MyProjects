@@ -1,19 +1,18 @@
-/*
-Произошел прикол - нифига не круто
-Все построенно на Евале и я запутался
-*/
 var diagram_variables = {//Переменные, нужные для Первичного запуска(размер поля, изначальная масштабировка)
-  builder_workbench_X: 16000,
-  builder_workbench_Y: 9000,
   canvas_x: 1800,
   canvas_y: 900,
   grid_scaling: 100,
   scaling: 0.02,
   grid_step: 40,
   grid_color: "#0d0d0d",
-  diagram_color: "red"
+  alert_prefab:{
+    title:"Привет!",
+    msgToFirst:"Кажется вы здесь впервые. Чтобы хоть что-то понять - рекомендую нажать Помощь. Если до сих пор ничего не понятно - жмите Контакт",
+    msgToReturn: "С возвращением"
+  }
 }
-var possible_diagrams = {//Встроенные графики
+//pd - сокращение от Possible Diagrams
+var pd = {//Встроенные графики
   parabola: "x*x + b*x + c",
   hyperbol: "1/x",
   sinus: "Math.sin(x)",
@@ -21,10 +20,7 @@ var possible_diagrams = {//Встроенные графики
   line: "x",
   circle: "Math.sqrt(1-x*x)"
 }
-var html_elements_toGet = [ //Вводить только строки, все полученные HTML объекты сохраняются в html_elements
-//Перестало быть нужным, так как есть какая-то фигня ниже, которая сама перебирает id
-
-//Upd: у меня проблемы с головой, походу оно все таки нужно
+var html_elements_toGet = [
 "Input_Formula", "diff_mode", "CleanButton"
 
 
@@ -47,22 +43,21 @@ window.onload = function() {
   ctx = canvas.getContext('2d');
   ctx.fillStyle = "black";
   ctx.fillRect(0,0,ctxX,ctxY); //Заполняем окно черным
-  getElements();
   start();
 }
 
 function start(){
+  getElements();
+  userCheck();
   grid_builder();
   main();
 }
 
 function main(){
   let centerX = diagram_variables.canvas_x/2;
-  var diagram = new object(centerX, 600, 500, "green", possible_diagrams.sinus);
+  var diagram = new object(centerX, 600, 500, "green", pd.sinus);
   current_diagrams.push(diagram);
-  //var diagram = new object(centerX, 600, 10, "blue", possible_diagrams.sinus, ["diff"]);
-  // current_diagrams.push(diagram);
-  var diagram = new object(centerX, 600, 500, "green", possible_diagrams.circle);
+  var diagram = new object(centerX, 600, 500, "green", pd.circle);
   current_diagrams.push(diagram);
 
   for(var i = 0; i < current_diagrams.length; i++){
@@ -86,7 +81,7 @@ function main(){
   
 }
 
-//та самая "фигня ниже"
+//Получает информацию со всех инпутов
 function getAllFromInputs() {
 var params = {};
 for (let i = 0; i < html_elements_toGet.length; i++) {
@@ -258,14 +253,6 @@ function trueDiff(parameters){//не знаю зачем мне тут функ�
 return trueDiff(parameters);
 }
 
-//Самая мощная/важная вещь
-//По-любому улучшать или придумать альтернативу Евалу
-/*
-Уже умеет:
-1)Убивать в строке пробелы
-2)Читать модификаторы
-3)...
-*/
 function valueParser(value){
 const space = " ";
 const empty = "";
@@ -319,4 +306,20 @@ ctx.fillRect(0,0,ctxX,ctxY); //Заполняем окно черным
 grid_builder();
 }
 
-
+function userCheck(){
+  var user = {
+    name: "Max",
+    saved_diagrams: null,
+  }
+  var check = JSON.parse(localStorage.getItem('user'));
+  if(check == null){
+    customAlert(diagram_variables.alert_prefab.title, diagram_variables.alert_prefab.msgToFirst);
+    localStorage.setItem('user', JSON.stringify(user));
+  } else {
+    customAlert(diagram_variables.alert_prefab.title, diagram_variables.alert_prefab.msgToReturn +" "+ check.name);
+  }
+  if(check === '[object Object]'){
+    customAlert('Упс!', 'В хранилище произошла какая-то ошибка, перезагрузите страницу');
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+}
