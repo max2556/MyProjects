@@ -43,7 +43,7 @@ function addLight(x, y, z, scene) {
 }
 function setTextures() {
     var loader = new THREE.CubeTextureLoader();
-    loader.setPath( "textures/" );
+    loader.setPath('textures/');
     var textureCube = loader.load( [
         'px.png', 'nx.png',
         'py.png', 'ny.png',
