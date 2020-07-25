@@ -22,14 +22,13 @@ function initThreejs() {
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    var geometry = new THREE.BoxGeometry(2,2,2);
     var controls = new THREE.TrackballControls(camera);
 
     var material = setTextures();
 
     //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
-    var cube = new THREE.Mesh(geometry, material);
+    var cube = new THREE.Mesh(new THREE.BoxGeometry(256, 256, 256, 1, 1, 1, materials));
     scene.add(cube);
     return {
         scene: scene,
@@ -49,12 +48,25 @@ function addLight(x, y, z, scene) {
     scene.add(light);
 }
 function setTextures() {
-    var loader = new THREE.CubeTextureLoader();
-    loader.setPath( "textures/" );
-    var textureCube = loader.load( [
-        'px.png', 'nx.png',
-        'py.png', 'ny.png',
-        'pz.png', 'nz.png'
-    ] );
-    return material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube } );
+    var materials = [
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/nx.png')
+        }),
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/px.png')
+        }),
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/ny.png')
+        }),
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/py.png')
+        }),
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/nz.png')
+        }),
+        new THREE.MeshLambertMaterial({
+            map: THREE.ImageUtils.loadTexture('/textures/pz.png')
+        })
+     ];
+    return materials;
 }
