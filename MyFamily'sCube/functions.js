@@ -28,7 +28,7 @@ function initThreejs() {
 
     //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
-    var cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2, 1, 1, 1, material));
+    var cube = new THREE.Mesh(new THREE.BoxGeometry(256, 256, 256, material));
     scene.add(cube);
     return {
         scene: scene,
