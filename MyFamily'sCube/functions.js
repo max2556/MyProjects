@@ -8,8 +8,7 @@ var animate = function (obj, scene, camera, renderer) {
 
     renderer.render(scene, camera);
 };
-function render(renderer, scene, camera) {
-    
+function render(renderer, scene, camera, controls) {
     controls.update();
     renderer.render(scene, camera);
 }
