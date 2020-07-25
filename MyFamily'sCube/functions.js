@@ -51,22 +51,22 @@ function addLight(x, y, z, scene) {
 function setTextures() {
     var materials = [
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.jpg")
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/px.png")
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/px.jpg")
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/ny.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/ny.jpg")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/py.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/py.jpg")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nz.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nz.jpg")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/pz.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/pz.jpg")        
         })
      ];
     return materials;
