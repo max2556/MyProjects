@@ -3,25 +3,29 @@ var animate = function (obj, scene, camera, renderer) {
     camera == undefined ? camera = app.camera : camera = camera;
     renderer == undefined ? renderer = app.renderer : renderer = renderer;
 
-    obj.rotation.x += 0.01;
-    obj.rotation.y += 0.01;
+    obj.rotation.x += 0.001;
+    obj.rotation.y += 0.001;
 
     renderer.render(scene, camera);
 };
 function render(renderer, scene, camera) {
-    //controls.update();
+    
+    controls.update();
     renderer.render(scene, camera);
 }
 function initThreejs() {
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(7, 7, 0); // Set position like this
+    camera.position.set(1, 1, 0); // Set position like this
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    var geometry = new THREE.BoxGeometry(5,5,5);
+    var geometry = new THREE.BoxGeometry(2,2,2);
+    var controls = new THREE.TrackballControls(camera);
 
-    var material = setTextures();
+    //var material = setTextures();
+
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
     var cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
@@ -32,6 +36,7 @@ function initThreejs() {
             cube
         ],
         renderer: renderer,
+        controls: controls,
     };
 }
 function addLight(x, y, z, scene) {
@@ -43,7 +48,7 @@ function addLight(x, y, z, scene) {
 }
 function setTextures() {
     var loader = new THREE.CubeTextureLoader();
-    loader.setPath('textures/');
+    loader.setPath( "D:/Projects/JS/MyFamily'sCube/textures/" );
     var textureCube = loader.load( [
         'px.png', 'nx.png',
         'py.png', 'ny.png',
