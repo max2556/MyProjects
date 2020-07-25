@@ -8,7 +8,10 @@ var animate = function (obj, scene, camera, renderer) {
 
     renderer.render(scene, camera);
 };
-function render(renderer, scene, camera, controls) {
+function render() {
+    var renderer,scene,camera,controls;
+    renderer = app.renderer; scene = app.scene; camera = app.camera; controls = app.controls;
+    requestAnimationFrame(render);
     controls.update();
     renderer.render(scene, camera);
 }
@@ -22,9 +25,9 @@ function initThreejs() {
     var geometry = new THREE.BoxGeometry(2,2,2);
     var controls = new THREE.TrackballControls(camera);
 
-    //var material = setTextures();
+    var material = setTextures();
 
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
     var cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
