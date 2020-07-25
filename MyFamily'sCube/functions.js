@@ -53,19 +53,19 @@ function setTextures() {
             map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/px.png")
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/ny.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/py.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nz.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/MyProjects/MyFamily'sCube/textures/pz.png")        
         })
      ];
     return materials;
