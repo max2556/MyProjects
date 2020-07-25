@@ -50,22 +50,22 @@ function addLight(x, y, z, scene) {
 function setTextures() {
     var materials = [
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")
+            map: new THREE.TextureLoader().load("/textures/nx.png")
         }),
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")
+            map: new THREE.TextureLoader().load("/textures/nx.png")
         }),
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/textures/nx.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/textures/nx.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/textures/nx.png")        
         }),
         new THREE.MeshLambertMaterial({
-            map: THREE.TextureLoader().load("/textures/nx.png")        
+            map: new THREE.TextureLoader().load("/textures/nx.png")        
         })
      ];
     return materials;
