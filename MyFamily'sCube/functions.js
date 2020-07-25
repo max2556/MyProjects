@@ -28,7 +28,7 @@ function initThreejs() {
 
     //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
-    var cube = new THREE.Mesh(new THREE.BoxGeometry(256, 256, 256), material);
+    var cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), material);
     scene.add(cube);
     return {
         scene: scene,
@@ -47,6 +47,7 @@ function addLight(x, y, z, scene) {
     light.position.set(x, y, z);
     scene.add(light);
 }
+
 function setTextures() {
     var materials = [
         new THREE.MeshLambertMaterial({
