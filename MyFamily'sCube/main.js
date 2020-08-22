@@ -1,9 +1,7 @@
 var app = initThreejs();
 
 
-addLight(-1,  2,  4, app.scene);
-addLight(-1,  0, -2, app.scene);
-addLight( 1, -1, -2, app.scene);
+addLight(1,  1,  1, app.scene);
 app.camera.position.z = 3;
 app.camera.lookAt(0,0,0)
 
