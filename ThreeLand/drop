@@ -1,0 +1,4 @@
+<input style="position: absolute;" id="Input" type="file">
+<input style="position: absolute;" id="start" type="button" value="Click!">
+var fileInput = document.getElementById('Input');
+var start = document.getElementById('start');
