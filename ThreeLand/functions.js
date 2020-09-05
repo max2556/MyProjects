@@ -17,11 +17,11 @@ function createMesh() {
     var file = '/MyProjects/ThreeLand/textures/px.jpg'; //input the correct file path
     var geometry = new THREE.PlaneGeometry(60, 60, a, a);
     var texture = new THREE.TextureLoader().load(file);
-    //var material = new THREE.MeshBasicMaterial({ map: texture });
-    var material = new THREE.MeshPhongMaterial({
+    var material = new THREE.MeshBasicMaterial({ map: texture });
+    /*var material = new THREE.MeshPhongMaterial({
         color: 0x998833,
         wireframe: true,
-    });
+    });*/
     var landscape = new THREE.Mesh(geometry, material);
     scene.add(landscape);
 
