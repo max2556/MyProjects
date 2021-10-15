@@ -3,6 +3,9 @@ class Controller {
     frequency = 30;
     awake = false;
     targetPoint = undefined;
+
+
+    taskArray = [];
     constructor(fStepper, sStepper, fWire, sWire, dObj) {
         this.firstStepper = fStepper;
         this.secondStepper = sStepper;
@@ -51,21 +54,24 @@ class Controller {
         let deltaPos = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
         if (deltaPos > this.epsilon) {
-
+            /*
             if (lengthRatio1 > 1) {
-                let l = Math.floor(lengthRatio1);
-                if (deltaL1 > 0) this.firstStepper.doMultipleStep(clock, l);
-                else this.firstStepper.doMultipleStep(clockwise, l);
+                //let l = Math.floor(lengthRatio1);
+                if (deltaL1 > 0) this.firstStepper.doStep(clock);
+                else this.firstStepper.doStep(clockwise);
+            } else {
+                //let l = Math.floor(1 / lengthRatio1);
                 if (deltaL2 > 0) this.secondStepper.doStep(clock);
                 else this.secondStepper.doStep(clockwise);
-            } else {
-                let l = Math.floor(1 / lengthRatio1);
-                if (deltaL1 > 0) this.firstStepper.doStep(clock, l);
-                else this.firstStepper.doStep(clockwise, l);
-                if (deltaL2 > 0) this.secondStepper.doMultipleStep(clock, l);
-                else this.secondStepper.doMultipleStep(clockwise, l);
-            }
+            }*/
 
+
+
+
+            if (deltaL1 > 0) this.firstStepper.doStep(clock, lengthRatio1);
+            else this.firstStepper.doStep(clockwise, lengthRatio1);
+            if (deltaL2 > 0) this.secondStepper.doStep(clock, 1 / lengthRatio1);
+            else this.secondStepper.doStep(clockwise, 1 / lengthRatio1);
 
 
 

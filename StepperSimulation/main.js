@@ -11,6 +11,13 @@ const clockwise = "clockwise";
 
 let objects = [];
 
+
+
+const lengthDelta = 1;
+const totalFrequency = 90;
+
+
+
 const firstStepperPosition = {
     x: 70,
     y: 70
@@ -25,8 +32,8 @@ const drawObjPosition = {
 }
 
 
-const firstStepper = new Stepper(2048, 5, firstStepperPosition);
-const secondStepper = new Stepper(2048, 5, secondStepperPosition);
+const firstStepper = new Stepper(2048, lengthDelta, firstStepperPosition);
+const secondStepper = new Stepper(2048, lengthDelta, secondStepperPosition);
 
 const firstWire = new Wire(firstStepper);
 const secondWire = new Wire(secondStepper);
@@ -42,9 +49,9 @@ objects.push(firstStepper);
 objects.push(secondStepper);
 objects.push(drawingObj);
 
-setInterval(drawingObj.pushPosToPath, 1000 / drawingObj.pathFrequency);
-setInterval(controller.invokeMoving, 1000 / controller.frequency)
-setInterval(drawAll, 1000 / controller.frequency)
+setInterval(drawingObj.pushPosToPath, 1000 / totalFrequency);
+setInterval(controller.invokeMoving, 1000 / totalFrequency)
+setInterval(drawAll, 1000 / totalFrequency)
 
 drawAll();
 
