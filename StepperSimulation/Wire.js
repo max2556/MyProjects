@@ -17,6 +17,7 @@ class Wire {
 
         let dX = this.startPosition.x - this.endPosition.x;
         let dY = this.startPosition.y - this.endPosition.y;
+        this.defaultL = Math.sqrt(dX * dX + dY * dY);
         this.length = Math.sqrt(dX * dX + dY * dY);
         this.visibleLength = this.length;
         console.log(this.length);

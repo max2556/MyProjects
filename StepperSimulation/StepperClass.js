@@ -58,4 +58,10 @@ class Stepper {
 
 
     }
+
+    changeDelta(N) {
+        this.wireLengthDelta = N;
+        this.maxDelta = N * 2;
+        this.minDelta = N / 4;
+    }
 }

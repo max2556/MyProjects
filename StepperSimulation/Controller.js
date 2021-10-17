@@ -19,6 +19,29 @@ class Controller {
         this.distanceBetweenMotors = Math.abs(this.firstStepper.position.x - this.secondStepper.position.x);
     }
 
+    changeLengthInCircle(N) {
+        let R = N * N;
+        let baseL1 = this.firstWire.length;
+        let baseL2 = this.secondWire.length;
+
+
+        for (let dl1 = -N; dl1 <= N; dl1++) {
+            let dl2 = Math.sqrt(R - (dl1 * dl1));
+
+            let l1 = baseL1 - dl1;
+            let l2 = baseL2 - dl2;
+            this.firstWire.setLength(l1);
+            this.secondWire.setLength(l2);
+        }
+        for (let dl1 = -N; dl1 <= N; dl1++) {
+            let dl2 = -Math.sqrt(R - (dl1 * dl1));
+
+            let l1 = baseL1 + dl1;
+            let l2 = baseL2 - dl2;
+            this.firstWire.setLength(l1);
+            this.secondWire.setLength(l2);
+        }
+    }
 
     moveObjToPoint(point) {
         if (point === undefined) return false;
@@ -90,4 +113,7 @@ class Controller {
 
     }
 
+    changeEpsilon(N) {
+        this.epsilon = this.epsilonMultiplier * N;
+    }
 }

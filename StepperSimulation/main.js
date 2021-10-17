@@ -16,19 +16,19 @@ let objects = [];
 const lengthDelta = 1;
 const totalFrequency = 90;
 
-
+let xBase = canvas.width;
 
 const firstStepperPosition = {
     x: 70,
     y: 70
 };
 const secondStepperPosition = {
-    x: canvas.width - 70,
+    x: xBase - 70,
     y: 70
 };
 const drawObjPosition = {
-    x: canvas.width / 2,
-    y: canvas.height / 2
+    x: xBase / 2,
+    y: canvas.height / 3 * 2
 }
 
 
@@ -49,10 +49,12 @@ objects.push(firstStepper);
 objects.push(secondStepper);
 objects.push(drawingObj);
 
-setInterval(drawingObj.pushPosToPath, 1000 / totalFrequency);
+//setInterval(drawingObj.pushPosToPath, 1000 / totalFrequency);
 setInterval(controller.invokeMoving, 1000 / totalFrequency)
 setInterval(drawAll, 1000 / totalFrequency)
 
+
+controller.changeLengthInCircle(200);
 drawAll();
 
 
@@ -75,6 +77,9 @@ document.addEventListener("keydown", (e) => {
     if (e.key == "4") {
         secondStepper.doStep(clockwise);
         console.log("Second stepper:" + secondStepper.steps);
+    }
+    if (e.key == "0") {
+        controller.changeLengthInCircle(100);
     }
     drawAll();
 })
@@ -117,4 +122,11 @@ function clearScreen() {
     let h = canvas.height;
     context.fillStyle = "#cccccc";
     context.fillRect(0, 0, w, h);
+}
+
+
+function changeDelta(N) {
+    firstStepper.changeDelta(N);
+    secondStepper.changeDelta(N);
+    controller.changeEpsilon(N);
 }

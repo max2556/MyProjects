@@ -71,6 +71,8 @@ class DrawingObj {
         this.currentPosition = pos;
         this.firstWire.setEndPos(pos);
         this.secondWire.setEndPos(pos);
+
+        this.path.push(pos);
     }
 
 
