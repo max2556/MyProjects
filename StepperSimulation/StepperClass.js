@@ -1,32 +1,56 @@
 class Stepper {
     speed = 5;
 
-    constructor(steps, delta, position) {
+
+    constructor(steps, delta, speed, position) {
         this.stepsPerRotation = steps;
         this.wireLengthDelta = delta;
         this.maxDelta = delta * 2;
-        this.minDelta = delta / 4;
+        this.minDelta = 0;
 
         this.position = position;
+
+
+        this.speed = speed;
+        this.maxSpeed = this.maxDelta / this.wireLengthDelta;
+        this.minSpeed = 0;
         this.steps = 0;
     }
 
 
-    doStep(side, mult) {
-        if (mult === undefined) mult = 1;
-        let delta = this.wireLengthDelta * mult;
+    doStep(side) {
+
+        let delta = this.wireLengthDelta * this.speed;
         if (delta > this.maxDelta) delta = this.maxDelta;
         if (delta < this.minDelta) delta = this.minDelta;
+
+
+        if (side > 0) {
+            this.wire.addLength(delta);
+            return;
+        } else if (side < 0) {
+            this.wire.addLength(-delta);
+            return;
+        }
+
 
         if (side === "clock") {
             this.steps++;
             this.wire.addLength(delta);
-        } else {
+            return;
+        } else if (side === "clockwise") {
             this.steps--;
             this.wire.addLength(-delta);
+            return;
         }
 
         //this.wire.setLength(this.steps * this.delta);
+    }
+
+    setSpeed(speed) {
+        this.speed = speed;
+        if (speed > this.maxSpeed) this.speed = this.maxSpeed;
+        if (speed < this.minSpeed) this.speed = this.minSpeed;
     }
 
     doMultipleStep(side, count) {

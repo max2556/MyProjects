@@ -14,7 +14,8 @@ let objects = [];
 
 
 const lengthDelta = 1;
-const totalFrequency = 90;
+const totalFrequency = 60;
+const motorDefaultSpeed = 1;
 
 let xBase = canvas.width;
 
@@ -32,8 +33,8 @@ const drawObjPosition = {
 }
 
 
-const firstStepper = new Stepper(2048, lengthDelta, firstStepperPosition);
-const secondStepper = new Stepper(2048, lengthDelta, secondStepperPosition);
+const firstStepper = new Stepper(2048, lengthDelta, motorDefaultSpeed, firstStepperPosition);
+const secondStepper = new Stepper(2048, lengthDelta, motorDefaultSpeed, secondStepperPosition);
 
 const firstWire = new Wire(firstStepper);
 const secondWire = new Wire(secondStepper);
@@ -50,8 +51,8 @@ objects.push(secondStepper);
 objects.push(drawingObj);
 
 //setInterval(drawingObj.pushPosToPath, 1000 / totalFrequency);
-setInterval(controller.invokeMoving, 1000 / totalFrequency)
-setInterval(drawAll, 1000 / totalFrequency)
+setInterval(controller.invokeMoving, 1000 / (totalFrequency * 2));
+setInterval(drawAll, 1000 / totalFrequency);
 
 
 controller.changeLengthInCircle(200);
@@ -89,6 +90,7 @@ canvas.onclick = (e) => {
 
     const point = { x: x, y: y };
     controller.targetPoint = point;
+    controller.calculations = undefined;
     controller.awake = true;
 
 };
