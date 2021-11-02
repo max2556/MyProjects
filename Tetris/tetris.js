@@ -191,6 +191,7 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("touchstart", (e) => {
     touchscreen_x = e.changedTouches[0].screenX;
     touchscreen_y = e.changedTouches[0].screenY;
+    e.preventDefault();
 })
 document.addEventListener("touchend", (e) => {
     let nx = e.changedTouches[0].screenX;
@@ -210,7 +211,7 @@ document.addEventListener("touchend", (e) => {
     } else {
         RotateBlock(currentBlock);
     }
-
+    e.preventDefault();
 })
 
 
