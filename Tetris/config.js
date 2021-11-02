@@ -1,0 +1,19 @@
+const cellSize = 40;
+const traceBlockColor = "#888888";
+const backgroundColor = "#010101";
+const emptyColor = "#444444";
+const deltaLight = 5;
+const border = 0;
+const gradientBlocks = true;
+const colors = [
+    "hsl(0, 100%, 50%)", //красный
+    "hsl(30, 100%, 60%)", //оранжевый
+    "hsl(50, 100%, 50%)", //желтый
+    "hsl(110, 100%, 50%)", //зеленый
+    "hsl(180, 100%, 50%)", //голубой
+    "hsl(230, 100%, 65%)", //синий
+    "hsl(285, 100%, 50%)", //фиолетовый
+];
+let isGameStarted = true;
+let isLose = false;
+let isPaused = false;

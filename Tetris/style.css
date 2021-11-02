@@ -10,12 +10,6 @@ canvas {
     background-color: rgb(13, 10, 36);
 }
 
-div {
-    position: absolute;
-    right: 2rem;
-    top: 2rem;
-}
-
 button {
     z-index: 1;
     margin: 0.5rem;
@@ -53,4 +47,18 @@ span {
 #nextField {
     position: absolute;
     left: 500px;
+}
+
+.handler {
+    position: fixed;
+    left: 500px;
+    top: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Roboto';
 }
