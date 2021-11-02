@@ -195,8 +195,8 @@ document.addEventListener("touchstart", (e) => {
 document.addEventListener("touchend", (e) => {
     let nx = e.changedTouches[0].screenX;
     let ny = e.changedTouches[0].screenY;
-    let dx = nx - x;
-    let dy = ny - y;
+    let dx = nx - touchscreen_x;
+    let dy = ny - touchscreen_y;
     let absX = Math.abs(dx);
     let absY = Math.abs(dy);
     if ((absX > touchscreen_minMove || absY > touchscreen_minMove)) {
@@ -205,7 +205,7 @@ document.addEventListener("touchend", (e) => {
             else RightMove()
 
         } else {
-            if (dy > 0) DownMove;
+            if (dy > 0) DownMove();
         }
     } else {
         RotateBlock(currentBlock);
@@ -299,8 +299,18 @@ function DrawBlock(block) {
     for (let part of block.pattern) {
         let y = block.y + part.y;
         let x = block.x + part.x;
-        let lightness = 50 + i * deltaLight;
-        if (gradientBlocks) color = block.color.substring(0, block.color.length - 4) + lightness + "%)";
+        let colorArray = block.color.split(",");
+        let defLightString = colorArray[2];
+        defLightString = defLightString.substring(1, defLightString.length - 2);
+        let defLight = eval(defLightString);
+        let lightness;
+        if (defLight + i * deltaLight < 100)
+            lightness = ", " + (defLight + i * deltaLight) + "%)";
+        else lightness = ", 100%)";
+        if (defLight + i * deltaLight > 0)
+            lightness = ", " + (defLight + i * deltaLight) + "%)";
+        else lightness = ", 0%)";
+        if (gradientBlocks) color = colorArray[0] + "," + colorArray[1] + lightness;
         else color = block.color;
         Draw(x, y, color);
         i++;
@@ -363,8 +373,18 @@ function SoliditifyBlock(block) {
     for (let part of block.pattern) {
         let y = block.y + part.y;
         let x = block.x + part.x;
-        let lightness = 50 + i * deltaLight;
-        if (gradientBlocks) color = block.color.substring(0, block.color.length - 4) + lightness + "%)";
+        let colorArray = block.color.split(",");
+        let defLightString = colorArray[2];
+        defLightString = defLightString.substring(1, defLightString.length - 2);
+        let defLight = eval(defLightString);
+        let lightness;
+        if (defLight + i * deltaLight < 100)
+            lightness = ", " + (defLight + i * deltaLight) + "%)";
+        else lightness = ", 100%)";
+        if (defLight + i * deltaLight > 0)
+            lightness = ", " + (defLight + i * deltaLight) + "%)";
+        else lightness = ", 0%)";
+        if (gradientBlocks) color = colorArray[0] + "," + colorArray[1] + lightness;
         else color = block.color;
         map[y][x] = color;
         i++;
