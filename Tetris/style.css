@@ -1,45 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 body {
     margin: 0;
     padding: 0;
-    overscroll-behavior: contain;
-    overflow-y: hidden
+    overflow: hidden;
+    overscroll-behavior: none;
+    height: 100%;
+    min-height: 100%;
 }
 
+
+/*
 canvas {
     z-index: 0;
     position: absolute;
-    background-color: rgb(13, 10, 36);
-}
+}*/
 
 button {
     z-index: 1;
     margin: 0.5rem;
-    background: aliceblue;
+    background: white;
     text-align: center;
     /*text-transform: uppercase;*/
     box-sizing: border-box;
-    border-radius: 6px;
-    border: 2px solid #000000;
-    font-size: 36px;
-    font-family: 'Roboto', sans-serif;
-}
-
-button:active {
-    transition: 100ms;
-    background: rgb(76, 29, 90);
-    color: white;
-}
-
-span {
-    position: absolute;
-    right: 0.5rem;
-    top: 4rem;
+    border-radius: 0px 0px 15px 15px;
+    border: 1px solid rgb(28, 11, 34);
+    padding: 5px;
     font-size: 36px;
     font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+
+button:hover {
+    transition: 100ms;
+    background: rgb(28, 11, 34);
     color: white;
 }
 
+
+/*
 #savedField {
     position: absolute;
     left: 500px;
@@ -49,18 +49,27 @@ span {
 #nextField {
     position: absolute;
     left: 500px;
-}
-
-.handler {
-    position: fixed;
-    left: 500px;
-    top: 150px;
-    display: flex;
-    flex-direction: column;
-}
+}*/
 
 div {
     font-size: 24px;
     font-weight: bold;
     font-family: 'Roboto';
+}
+
+ul {
+    list-style-type: none;
+    font-size: 24px;
+    font-family: "Comfortaa", sans-serif;
+    padding: 0;
+    margin: 2px 2px;
+    min-width: max-content;
+}
+
+.version {
+    font-size: 24px;
+    font-family: "Comfortaa", sans-serif;
+    position: fixed;
+    right: 60px;
+    bottom: 60px;
 }

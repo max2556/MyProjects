@@ -1,20 +1,29 @@
+import { updateDatabase } from "./databaseScript.js";
+import { initAlert } from "./frontendScipt.js";
+import { cellSize, traceBlockColor, backgroundColor, emptyColor, deltaLight, border, gradientBlocks, colors } from "./storageScipt.js";
+
+
 const canvas = document.getElementById("mainField");
 canvas.width = cellSize * 10;
 canvas.height = cellSize * 20;
 const context = canvas.getContext('2d');
-
+context.fillStyle = backgroundColor;
+context.fillRect(0, 0, canvas.width, canvas.height);
 
 const savedCanvas = document.getElementById("savedField");
 savedCanvas.width = cellSize * 4;
 savedCanvas.height = cellSize * 2;
 const savedContext = savedCanvas.getContext("2d");
-savedContext.fillStyle = backgroundColor;
+savedContext.fillStyle = emptyColor;
 savedContext.fillRect(0, 0, savedCanvas.width, savedCanvas.height);
 
 const nextCanvas = document.getElementById("nextField");
 nextCanvas.width = cellSize * 4;
 nextCanvas.height = cellSize * 2;
 const nextContext = nextCanvas.getContext("2d");
+nextContext.fillStyle = emptyColor;
+nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+
 
 const scoreDiv = document.getElementById("score");
 const rowDiv = document.getElementById("row");
@@ -39,7 +48,8 @@ const map_width = 10;
 const map_height = 20;
 
 
-let dropRate = 2;
+let def_dropRate = 2;
+let dropRate = def_dropRate;
 const maxDropRate = 10;
 const drawFrameRate = 60;
 
@@ -134,7 +144,7 @@ let map = [];
 
 
 
-let score = 0;
+export let score = 0;
 let rows = 0;
 let level = 0;
 
@@ -150,12 +160,14 @@ map = new Array(map_height).fill(null).map(function(num) { return new Array(map_
 let currentBlock = CreateNewBlock();
 let savedBlock = null;
 let nextBlock = CreateNewBlock();
+DrawNextBlock(nextBlock, nextContext);
 let counter = 0;
-let isAlreadySwitched = false
-Init();
-Game();
-//setInterval(Game, 1000 / dropRate);
-setInterval(Draw_interval, 1000 / drawFrameRate);
+let isAlreadySwitched = false;
+
+if (isGameStarted && !isLose && !isPaused) {
+    Init();
+}
+
 
 //#endregion
 
@@ -171,7 +183,6 @@ document.addEventListener("keydown", (e) => {
             RightMove();
         }
         if (e.code === "KeyS") {
-
             DownMove();
 
         }
@@ -182,9 +193,6 @@ document.addEventListener("keydown", (e) => {
         if (e.code === "Space") {
             if (!isAlreadySwitched) SwitchBlocks();
         }
-    }
-    if (e.code === "Escape") {
-        isPaused = !isPaused;
     }
 })
 
@@ -218,25 +226,38 @@ document.addEventListener("touchend", (e) => {
 
 
 function LeftMove() {
+    //ClearBlockWay(currentBlock);
     for (let part of currentBlock.pattern) {
         if (!(currentBlock.x + part.x - 1 >= 0 && map[currentBlock.y + part.y][currentBlock.x + part.x - 1] == null)) return false;
     }
+
     currentBlock.x -= 1;
+    DrawBlock(currentBlock);
+    currentBlock.prevX = currentBlock.x;
 }
 
 function RightMove() {
+    //ClearBlockWay(currentBlock);
     for (let part of currentBlock.pattern) {
         if (!(currentBlock.x + part.x + 1 < map_width && map[currentBlock.y + part.y][currentBlock.x + part.x + 1] == null)) return false;
     }
+    currentBlock.prevX = currentBlock.x;
+
+    DrawBlock(currentBlock);
     currentBlock.x += 1;
 }
 
 function DownMove() {
+    //ClearBlockWay(currentBlock);
     let isNeedDown = true;
     for (let part of currentBlock.pattern) {
         if (map[currentBlock.y + part.y + 1] === undefined || map[currentBlock.y + part.y + 1][currentBlock.x + part.x] !== null || part.y + 1 > map_height) isNeedDown = false;
     }
-    if (isNeedDown) { currentBlock.y++; } else {
+    if (isNeedDown) {
+        currentBlock.y++;
+        DrawBlock(currentBlock);
+        currentBlock.prevY = currentBlock.y;
+    } else {
         AfterMoveDown();
     }
 }
@@ -249,6 +270,7 @@ function AfterMoveDown() {
             CheckForRow(map);
             currentBlock = nextBlock;
             nextBlock = CreateNewBlock();
+            DrawNextBlock(nextBlock, nextContext);
             isAlreadySwitched = false;
         }
         timer = 0;
@@ -270,16 +292,46 @@ function Game() {
 
 
 
-function Init() {
+export function Init() {
     context.fillStyle = backgroundColor;
     context.fillRect(0, 0, canvas.width, canvas.height);
+    isGameStarted = true;
     DrawAll(map);
+    setInterval(Draw_interval, 1000 / drawFrameRate);
+    Game();
+}
+
+function Draw_interval() {
+    DrawAll(map);
+    TraceBlock(currentBlock);
+    DrawBlock(currentBlock);
+
+
+}
+
+export function ClearGame() {
+    map = new Array(map_height).fill(null).map(function(num) { return new Array(map_width).fill(null) });
+    currentBlock = CreateNewBlock();
+    savedBlock = null;
+    nextBlock = CreateNewBlock();
+    counter = 0;
+    isAlreadySwitched = false;
+    isLose = false;
+    isPaused = false;
+    isGameStarted = true;
+    score = 0;
+    scoreDiv.textContent = 0;
+    rows = 0;
+    rowDiv.textContent = 0;
+    level = 0;
+    levelDiv.textContent = 0;
+    dropRate = def_dropRate;
 }
 
 
 function Draw(x, y, state, ctx) {
     if (ctx === undefined) ctx = context;
-
+    let color;
     if (state === undefined || state === null) { color = emptyColor } else { color = state; }
     ctx.fillStyle = color;
     ctx.fillRect(x * cs, y * cs, cs - border, cs - border);
@@ -295,6 +347,7 @@ function DrawAll(map) {
 }
 
 function DrawBlock(block) {
+
     let i = -1;
     let color;
     for (let part of block.pattern) {
@@ -316,12 +369,20 @@ function DrawBlock(block) {
         Draw(x, y, color);
         i++;
     }
+
+}
+
+function ClearBlockWay(block) {
+    for (let part of block.pattern) {
+        let y = block.prevY + part.y;
+        let x = block.prevX + part.x;
+        Draw(x, y);
+    }
 }
 
 
-
 function DrawSavedBlock(block, ctx) {
-    ctx.fillStyle = backgroundColor;
+    ctx.fillStyle = emptyColor;
     ctx.fillRect(0, 0, 4 * cellSize, 2 * cellSize);
     for (let part of patterns[0][block.patternType]) {
         let y = part.y;
@@ -332,7 +393,7 @@ function DrawSavedBlock(block, ctx) {
 }
 
 function DrawNextBlock(block, ctx) {
-    ctx.fillStyle = backgroundColor;
+    ctx.fillStyle = emptyColor;
     ctx.fillRect(0, 0, 4 * cellSize, 2 * cellSize);
     for (let part of block.pattern) {
         let y = part.y;
@@ -342,13 +403,7 @@ function DrawNextBlock(block, ctx) {
     }
 }
 
-function Draw_interval() {
-    DrawAll(map);
-    TraceBlock(currentBlock);
-    DrawBlock(currentBlock);
-    DrawNextBlock(nextBlock, nextContext);
-    if (savedBlock !== null) DrawSavedBlock(savedBlock, savedContext);
-}
+
 
 function CreateNewBlock() {
     const patternType = Math.floor(Math.random() * patterns[0].length);
@@ -364,6 +419,8 @@ function CreateNewBlock() {
         color: color,
         x: x,
         y: y,
+        prevX: x,
+        prevY: y,
         rotation: 0
     }
 }
@@ -390,6 +447,7 @@ function SoliditifyBlock(block) {
         map[y][x] = color;
         i++;
     }
+    //DrawAll(map);
 }
 
 
@@ -398,6 +456,7 @@ function CheckForLose(block) {
         if (part.y + block.y <= 0) {
             isLose = true;
             console.log("You lose!");
+            initAlert();
             return true;
         }
     }
@@ -423,7 +482,7 @@ function CheckForRow(map) {
             score += score_delta * mult * (level + 1);
             mult += 0.5;
             rows++;
-
+            DrawAll(map);
         }
     }
     if (Math.floor(rows / 4) - Math.floor(prevRows / 4) !== 0 && dropRate + 1 < maxDropRate) {
@@ -452,6 +511,8 @@ function SwitchBlocks() {
         savedBlock = currentBlock;
         currentBlock = nextBlock;
         nextBlock = CreateNewBlock();
+        DrawSavedBlock(savedBlock, savedContext);
+
         return false;
     }
     let buffer = currentBlock;
@@ -459,6 +520,8 @@ function SwitchBlocks() {
     currentBlock.y = 0;
     savedBlock = buffer;
     isAlreadySwitched = true;
+    //if (savedBlock !== null) 
+    DrawSavedBlock(savedBlock, savedContext);
 }
 
 
@@ -475,6 +538,8 @@ function TraceBlock(block) {
             blockCopy.y += 1;
         }
     }
+    blockCopy.prevY = blockCopy.y;
+    //ClearBlockWay(blockCopy);
     for (let part of blockCopy.pattern) {
         let y = blockCopy.y + part.y;
         let x = blockCopy.x + part.x;

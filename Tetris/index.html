@@ -1,16 +1,137 @@
 <head>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
     <meta charset="utf-8">
 </head>
 
-<div class="handler">
-    <div id="score">0</div>
-    <div id="row">0</div>
-    <div id="level">0</div>
-</div>
-<canvas id="savedField"></canvas>
-<canvas id="nextField"></canvas>
-<canvas id="mainField" width="400" height="800"></canvas>
+<body>
+    <!--
+    <iframe src="./backgroundMus.mp3" allow="autoplay" hidden></iframe>
+    <video id="audio" autoplay controls name="media" hidden muted>
+        <source src="./backgroundMus.mp3" type="audio/mpeg">
+    </video>
+-->
+    <div class="version">
+        1.004v
+    </div>
 
-<script src="config.js"></script>
-<script src="tetris.js"></script>
+
+    <div class="heartsHolder">
+        <svg id="heart-svg" class="background-heart" viewBox="0 0 332.945 235.157" xmlns="http://www.w3.org/2000/svg">
+        <path class="heart-path" d="M 127.474 225.262 C 127.474 225.262 287.544 131.548 239.813 46.565 C 192.082 -38.418 130.384 48.894 130.384 48.894 C 130.384 48.894 72.76 -36.671 23.283 45.401 C -26.194 127.473 127.474 225.262 127.474 225.262 Z"/>
+      </svg>
+    </div>
+
+
+
+
+
+    <div class="imgHolder">
+        <img class="image" src="back.png">
+    </div>
+
+    <div class="menuOverlay" id="menuOverlay">
+        <div class="scaleAnim">
+            <div class="logo rotateAnim">
+                <span class="pink heart">♥</span>
+                <span class="pink">T</span>
+                <span class="pink">E</span>
+                <span class="pink">T</span>
+                <span class="pink">R</span>
+                <span class="pink">I</span>
+                <span class="pink">S</span>
+                <span class="pink heart">♥</span>
+            </div>
+        </div>
+        <div class="buttonsHandler">
+            <div class="buttonsWrapper">
+                <button id="startButton">Начать игру!</button>
+                <button id="continueButton" hidden>Продолжить!</button>
+                <button id="repeatButton" hidden>Еще раз!</button>
+                <button id="settingsButton">Настройки</button>
+            </div>
+        </div>
+        <div class="settings" hidden>
+            <div>
+                <span> Размер Клетки</span>
+                <input id="cellSize" class="settingsInput" type="text" placeholder="40">
+            </div>
+            <div>
+                <span> Ширина сетки</span>
+                <input id="border" class="settingsInput" type="text" placeholder="0">
+            </div>
+            <div>
+                <span>Цвет 'тени' блока
+            </span>
+                <input id="traceBlockColor" class="settingsInput" type="text" placeholder="#888888">
+            </div>
+            <div>
+                <span>Цвет заднего фона</span>
+                <input id="backgroundColor" class="settingsInput" type="text" placeholder="#333333">
+            </div>
+            <div>
+                <span>Цвет пустого блока</span>
+                <input id="emptyColor" class="settingsInput" type="text" placeholder="#333333">
+            </div>
+            <div>
+                <span>Включить градиент?</span>
+                <input id="gradientBlocks" class="settingsInput" type="text" placeholder="true">
+            </div>
+            <div>
+                <span>Шаг градиента</span>
+                <input id="deltaLight" class="settingsInput" type="text" placeholder="3">
+            </div>
+            <button id="restoreSettings">Restore</button>
+            <button id="applySettings">Apply</button>
+        </div>
+    </div>
+
+
+
+    <div class="mainPart">
+        <div class="left">
+            <canvas id="nextField"></canvas>
+            <canvas id="savedField"></canvas>
+        </div>
+        <div class="center">
+            <div class="pink miniLogo">♥TETRIS♥</div>
+            <canvas id="mainField"></canvas>
+        </div>
+        <div class="right">
+
+            <div class="scoresHandler">
+                <div class="text-center">STATS</div>
+                <div class="flexTable"><span class="fixedLength">Score:</span><span id="score">0</span></div>
+                <div class="flexTable"><span class="fixedLength">Rows:</span><span id="row">0</span></div>
+                <div class="flexTable"><span class="fixedLength">Level:</span><span id="level">0</span></div>
+            </div>
+            <div class="tableHandler">
+                <span>Таблица лидеров!</span>
+                <ul id="scoresTable">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert" hidden>
+        <div class="alertBody">
+            <object class="alertRisunok" type="image/svg+xml" data="Line.svg">Your browser does not support SVG</object>
+            <h2>Вы проиграли!</h2>
+            <span>Для того, чтобы сохранить ваш прогресс - введите имя</span>
+            <div><input id="nicknameInput" type="text" placeholder="Введите имя..."></div>
+            <span class="alertRules">Длина(от 3 до 16), без спецсимволов </span>
+            <div><button id="closeAlert">Закрыть</button><button id="sendScore">Отправить</button></div>
+        </div>
+    </div>
+
+
+    <script src="config.js"></script>
+    <script type="module" src="./storageScipt.js"></script>
+    <script type="module" src="./databaseInit.js"></script>
+    <script type="module" src="./databaseScript.js"></script>
+    <script type="module" src="./tetris.js"></script>
+    <script type="module" src="./frontendScipt.js"></script>
+    <!--<script src="music.js"></script>-->
+    <script src="hearts.js"></script>
+</body>
