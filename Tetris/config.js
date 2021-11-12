@@ -13,9 +13,15 @@ let defaultSettings = {
     "emptyColor": "#181818",
     "deltaLight": 3,
     "border": 0,
-    "gradientBlocks": false,
+    "gradientBlocks": true,
     "colors": [
-        "hsl(290, 100%, 50%)"
+        "hsl(0, 100%, 60%)",
+        "hsl(30, 100%, 60%)",
+        "hsl(50, 100%, 60%)",
+        "hsl(110, 100%, 60%)",
+        "hsl(180, 100%, 60%)",
+        "hsl(230, 100%, 65%)",
+        "hsl(285, 100%, 60%)"
     ]
 };
 

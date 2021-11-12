@@ -3,7 +3,7 @@
 }
 
 body {
-    background: linear-gradient(150deg, #5a0054, #6c0064, #810076, #930087, #930087, #810076, #6c0064, #5a0054);
+    background: linear-gradient(150deg, #130081, #005d92, #009670, #00b35f, #6caf00, #ad9300, #993d00, #940000);
 }
 
 canvas {
@@ -139,7 +139,7 @@ canvas {
 .mainPart {
     display: flex;
     justify-content: center;
-    background: radial-gradient(circle at 50% 20%, #000000 0, transparent 50%), radial-gradient(circle at 50% 60%, #000000 0, transparent 50%);
+    background: radial-gradient(circle at 50% 20%, #000000 0, transparent 30%), radial-gradient(circle at 50% 60%, #000000 0, transparent 30%);
     height: 100vh;
 }
 
@@ -224,9 +224,7 @@ canvas {
 }
 
 .image {
-    height: 100vh;
-    max-width: 950;
-    max-height: 950;
+    max-height: 100vh;
     opacity: 0.75;
     border-radius: 10%;
 }
@@ -289,8 +287,8 @@ canvas {
 }
 
 .background-heart {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: fixed;
     z-index: -1;
 }
@@ -308,13 +306,21 @@ canvas {
         stroke-width: 15px;
         stroke: rgb(255, 0, 43);
     }
-    50% {
+    25% {
         stroke-width: 25px;
-        stroke: rgb(252, 11, 200);
+        stroke: rgb(200, 252, 11);
+    }
+    50% {
+        stroke-width: 15;
+        stroke: rgb(11, 252, 23);
+    }
+    75% {
+        stroke-width: 25px;
+        stroke: rgb(11, 176, 252);
     }
     100% {
         stroke-width: 15px;
-        stroke: rgb(255, 0, 43);
+        stroke: rgb(255, 0, 255);
     }
 }
 
